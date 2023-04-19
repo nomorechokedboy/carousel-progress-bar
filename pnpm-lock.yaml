@@ -4,6 +4,9 @@ specifiers:
   '@sveltejs/vite-plugin-svelte': ^2.0.3
   '@tsconfig/svelte': ^3.0.0
   autoprefixer: ^10.4.7
+  embla-carousel: ^7.1.0
+  embla-carousel-autoplay: ^7.1.0
+  embla-carousel-svelte: ^7.1.0
   postcss: ^8.4.14
   postcss-load-config: ^4.0.1
   svelte: ^3.55.1
@@ -13,6 +16,11 @@ specifiers:
   tslib: ^2.5.0
   typescript: ^4.9.3
   vite: ^4.2.0
+
+dependencies:
+  embla-carousel: 7.1.0
+  embla-carousel-autoplay: 7.1.0_embla-carousel@7.1.0
+  embla-carousel-svelte: 7.1.0_svelte@3.58.0
 
 devDependencies:
   '@sveltejs/vite-plugin-svelte': 2.0.4_svelte@3.58.0+vite@4.2.2
@@ -468,6 +476,27 @@ packages:
   /electron-to-chromium/1.4.367:
     resolution: {integrity: sha512-mNuDxb+HpLhPGUKrg0hSxbTjHWw8EziwkwlJNkFUj3W60ypigLDRVz04vU+VRsJPi8Gub+FDhYUpuTm9xiEwRQ==}
     dev: true
+
+  /embla-carousel-autoplay/7.1.0_embla-carousel@7.1.0:
+    resolution: {integrity: sha512-nYfgSGn3ek44OzwO0t/Ptuxq4PNPD5l7Y9X7JjLYI/DN1uGjqxz9L73YYqR6YCRDnTYJ88s9fep48dzBnSG4vQ==}
+    peerDependencies:
+      embla-carousel: 7.1.0
+    dependencies:
+      embla-carousel: 7.1.0
+    dev: false
+
+  /embla-carousel-svelte/7.1.0_svelte@3.58.0:
+    resolution: {integrity: sha512-OrMARLa7ltV0+cXovSDw3jjbRmDKD81ZN9qjOFPmvlTTou5WVOYXXI+C+zrFJXWLP2eFlmAmBOTp2GwnExWi1A==}
+    peerDependencies:
+      svelte: ^3.49.0
+    dependencies:
+      embla-carousel: 7.1.0
+      svelte: 3.58.0
+    dev: false
+
+  /embla-carousel/7.1.0:
+    resolution: {integrity: sha512-Bh8Pa8NWzgugLkf8sAGexQlBCNDFaej5BXiKgQdRJ1mUC9NWBrw9Z23YVPVGkguWoz5LMjZXXFVGCobl3UPt/Q==}
+    dev: false
 
   /es6-promise/3.3.1:
     resolution: {integrity: sha512-SOp9Phqvqn7jtEUxPWdWfWoLmyt2VaJ6MpvP9Comy1MceMXqE6bxvaTu4iaxpYYPzhny28Lc+M87/c2cPK6lDg==}
@@ -1121,7 +1150,6 @@ packages:
   /svelte/3.58.0:
     resolution: {integrity: sha512-brIBNNB76mXFmU/Kerm4wFnkskBbluBDCjx/8TcpYRb298Yh2dztS2kQ6bhtjMcvUhd5ynClfwpz5h2gnzdQ1A==}
     engines: {node: '>= 8'}
-    dev: true
 
   /tailwindcss/3.3.1:
     resolution: {integrity: sha512-Vkiouc41d4CEq0ujXl6oiGFQ7bA3WEhUZdTgXAhtKxSy49OmKs8rEfQmupsfF0IGW8fv2iQkp1EVUuapCFrZ9g==}
