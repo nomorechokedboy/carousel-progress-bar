@@ -3,8 +3,6 @@
     let currentSlide = 0;
     let interval: NodeJS.Timeout;
     const delay = 5000; // time in milliseconds between slide changes
-    const progressStep = 10; // time in milliseconds for each progress bar step
-    let progressBarWidth = [0, 0, 0];
     const slides = [
         {
             src: "https://rustacean.net/assets/cuddlyferris.png",
@@ -20,9 +18,6 @@
         },
     ];
     function next() {
-        if (progressBarWidth[currentSlide] < 100) {
-            progressBarWidth[currentSlide] = 100;
-        }
         nextSlide();
         stopInterval();
         startInterval();
@@ -35,31 +30,18 @@
     }
 
     function PreviousSlide() {
-        progressBarWidth[currentSlide] = 0;
         currentSlide = (currentSlide - 1) % slides.length;
-        progressBarWidth[currentSlide] = 0;
         if (currentSlide < 0) {
             currentSlide = slides.length - 1;
-        }
-        if (currentSlide === slides.length - 1) {
-            for (let i = 0; i < progressBarWidth.length - 1; i++) {
-                progressBarWidth[i] = 100;
-            }
         }
     }
 
     function nextSlide() {
         currentSlide = (currentSlide + 1) % slides.length;
-        if (currentSlide === 0) {
-            for (let i = 0; i < progressBarWidth.length; i++) {
-                progressBarWidth[i] = 0;
-            }
-        }
     }
     function startInterval() {
         interval = setInterval(() => {
             nextSlide();
-            progressBarWidth[currentSlide] = 0;
         }, delay);
     }
     function stopInterval() {
@@ -67,12 +49,6 @@
     }
     onMount(() => {
         startInterval();
-        // Increase the progress bar width every `progressStep` milliseconds
-        setInterval(() => {
-            if (progressBarWidth[currentSlide] < 100) {
-                progressBarWidth[currentSlide] += (progressStep * 100) / delay;
-            }
-        }, progressStep);
     });
     onDestroy(() => {
         stopInterval();
@@ -140,14 +116,16 @@
         />
     {/each}
 
-    <div class="flex items-center gap-5 absolute bottom-0 w-full">
+    <div
+        class="flex items-center gap-5 absolute bottom-0 w-full"
+        style="--delay: {delay / 1000}s"
+    >
         {#each slides as _, index}
-            <div class="progress-bar bg-white" style={`width: ${100 / 3}%`}>
-                <div
-                    class="progress-bar bg-blue-500 absolute"
-                    style={`width: ${progressBarWidth[index] / 3}%`}
-                />
-            </div>
+            <div
+                class="progress"
+                class:active={currentSlide === index}
+                class:passed={currentSlide > index}
+            />
         {/each}
     </div>
 </div>
@@ -169,5 +147,43 @@
     }
     .progress-bar {
         height: 4px;
+    }
+
+    @keyframes progress {
+        0% {
+            background-position: 100% 0;
+        }
+        100% {
+            background-position: 0 0;
+        }
+    }
+
+    .progress {
+        height: 4px;
+        flex-grow: 1;
+        border-radius: 4px;
+        display: flex;
+        background-image: -webkit-linear-gradient(
+            left,
+            rgba(255, 255, 255, 0.5) 0%,
+            rgba(255, 255, 255, 0.5) 50%,
+            rgba(88, 89, 104, 0.5) 50.001%,
+            rgba(88, 89, 104, 0.5) 100%
+        );
+        background-repeat: no-repeat;
+        background-size: 200%;
+        background-color: #666;
+        background-position: 100% 50%;
+        animation-timing-function: ease;
+        animation-delay: 0.2s;
+        animation-duration: var(--delay);
+    }
+
+    .progress.active {
+        animation-name: progress;
+    }
+
+    .progress.passed {
+        background-position: 0 0;
     }
 </style>
