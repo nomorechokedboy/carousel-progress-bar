@@ -1,5 +1,7 @@
 <script lang="ts">
     import { onMount, onDestroy } from "svelte";
+    import { fade } from "svelte/transition";
+
     let currentSlide = 0;
     let interval: NodeJS.Timeout;
     const delay = 5000; // time in milliseconds between slide changes
@@ -109,11 +111,14 @@
         </span>
     </button>
     {#each slides as slide, index}
-        <img
-            src={slide.src}
-            alt={slide.alt}
-            class={index === currentSlide ? "active" : ""}
-        />
+        {#if currentSlide === index}
+            <img
+                transition:fade
+                src={slide.src}
+                alt={slide.alt}
+                class={index === currentSlide ? "active" : ""}
+            />
+        {/if}
     {/each}
 
     <div
